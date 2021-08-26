@@ -12,7 +12,7 @@ return HttpRouteCreator::create()
 	->setChildRoutes(
 		[
 			'add'         => HttpRouteCreator::create()
-				->setMethods(['POST'])
+				->setMethods([ 'POST' ])
 				->setAction(Add::class)
 				->getConfig(),
 			'single-item' => HttpRouteCreator::create()
@@ -26,7 +26,7 @@ return HttpRouteCreator::create()
 				->setChildRoutes(
 					[
 						'get'     => HttpRouteCreator::create()
-							->setMethods(['GET'])
+							->setMethods([ 'GET' ])
 							->setAction(Get::class)
 							->getConfig(),
 						'content' => HttpRouteCreator::create()
@@ -34,7 +34,7 @@ return HttpRouteCreator::create()
 							->setConstraints(
 								[
 									'type'      => '\w+',
-									'fileName'  => '\w+',
+									'fileName'  => '[\w\-]+',
 									'extension' => '\w+',
 								]
 							)

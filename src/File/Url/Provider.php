@@ -32,7 +32,7 @@ class Provider
 	 */
 	public function all(Entity $entity)
 	{
-		$types = ['original']; // all types for now, maybe more logic in future version
+		$types = [ 'original' ]; // all types for now, maybe more logic in future version
 
 		$urls = [];
 
@@ -54,7 +54,10 @@ class Provider
 	 */
 	private function getUrl(Entity $entity, string $type)
 	{
-		list($fileName, $extension) = explode('.', $entity->getFileName());
+		[ $fileName, $extension ] = explode('.', $entity->getFileName());
+
+		$fileName = preg_replace('#[^\w\-]+#', '-', $fileName);
+		$fileName = preg_replace('#[\-]{2,}#', '', $fileName);
 
 		return sprintf(
 			'%s://%s%s',
@@ -70,7 +73,7 @@ class Provider
 					'extension' => $extension,
 				],
 				[
-					'name' => 'assets/file/single-item/content'
+					'name' => 'assets/file/single-item/content',
 				]
 			)
 		);
