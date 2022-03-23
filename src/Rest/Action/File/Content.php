@@ -4,36 +4,24 @@ namespace Assets\Rest\Action\File;
 use Assets\File\Filesystem\PathProvider;
 use Assets\File\Provider;
 use Assets\Rest\Action\Base;
+use Laminas\Http\Response;
 use function file_exists;
 use function file_get_contents;
 use function strlen;
 
 class Content extends Base
 {
-	/**
-	 * @var Provider
-	 */
-	private $fileProvider;
+	private Provider $fileProvider;
 
-	/**
-	 * @var PathProvider
-	 */
-	private $pathProvider;
+	private PathProvider $pathProvider;
 
-	/**
-	 * @param Provider $fileProvider
-	 * @param PathProvider $pathProvider
-	 */
 	public function __construct(Provider $fileProvider, PathProvider $pathProvider)
 	{
 		$this->fileProvider = $fileProvider;
 		$this->pathProvider = $pathProvider;
 	}
 
-	/**
-	 *
-	 */
-	public function executeAction()
+	public function executeAction(): Response
 	{
 		$file = $this->fileProvider->byId(
 			$this

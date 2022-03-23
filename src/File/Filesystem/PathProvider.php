@@ -6,24 +6,14 @@ use Assets\File\Helper;
 
 class PathProvider
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @param array $config
-	 */
 	public function __construct(array $config)
 	{
 		$this->config = $config;
 	}
 
-	/**
-	 * @param Entity $entity
-	 * @return string
-	 */
-	public function byEntity(Entity $entity)
+	public function byEntity(Entity $entity): string
 	{
 		return sprintf(
 			'%s/%s/%s/%s.%s',

@@ -2,7 +2,7 @@
 namespace Assets;
 
 use Common\Router\HttpRouteCreator;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Ramsey\Uuid\Doctrine\UuidType;
 
 return [
@@ -31,7 +31,7 @@ return [
 		],
 		'driver'        => [
 			'assets_entities' => [
-				'class' => AnnotationDriver::class,
+				'class' => AttributeDriver::class,
 				'cache' => 'array',
 				'paths' => [ __DIR__ . '/../src/Db' ],
 			],

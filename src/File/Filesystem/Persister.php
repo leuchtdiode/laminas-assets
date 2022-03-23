@@ -8,24 +8,14 @@ use const PATHINFO_DIRNAME;
 
 class Persister
 {
-	/**
-	 * @var PathProvider
-	 */
-	private $pathProvider;
+	private PathProvider $pathProvider;
 
-	/**
-	 * @param PathProvider $pathProvider
-	 */
 	public function __construct(PathProvider $pathProvider)
 	{
 		$this->pathProvider = $pathProvider;
 	}
 
-	/**
-	 * @param PersistData $data
-	 * @return PersistResult
-	 */
-	public function persist(PersistData $data)
+	public function persist(PersistData $data): PersistResult
 	{
 		$result = new PersistResult();
 		$result->setSuccess(false);
@@ -48,10 +38,7 @@ class Persister
 		return $result;
 	}
 
-	/**
-	 * @param $directory
-	 */
-	private function ensureDirectories($directory): void
+	private function ensureDirectories(string $directory): void
 	{
 		if (!file_exists($directory))
 		{

@@ -1,28 +1,25 @@
 <?php
 namespace Assets\File;
 
-use Assets\File\Url\Url;
-use DateTime;
 use Assets\Db\File\Entity;
+use Assets\File\Url\Url;
+use Common\Dto\Dto;
 use Common\Hydration\ArrayHydratable;
+use Common\Hydration\ObjectToArrayHydratorProperty;
+use DateTime;
 use Ramsey\Uuid\UuidInterface;
 
-class File implements ArrayHydratable
+class File implements Dto, ArrayHydratable
 {
-	/**
-	 * @var Entity
-	 */
-	private $entity;
+	private Entity $entity;
 
 	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
 	 * @var Url[]
 	 */
-	private $urls;
+	#[ObjectToArrayHydratorProperty]
+	private array $urls;
 
 	/**
-	 * @param Entity $entity
 	 * @param Url[] $urls
 	 */
 	public function __construct(Entity $entity, array $urls)
@@ -39,59 +36,36 @@ class File implements ArrayHydratable
 		return $this->urls;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return UuidInterface
-	 */
-	public function getId()
+	#[ObjectToArrayHydratorProperty]
+	public function getId(): UuidInterface
 	{
 		return $this->entity->getId();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getFileName()
+	#[ObjectToArrayHydratorProperty]
+	public function getFileName(): string
 	{
 		return $this->entity->getFileName();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getSize()
+	#[ObjectToArrayHydratorProperty]
+	public function getSize(): string
 	{
 		return $this->entity->getSize();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getMimeType()
+	#[ObjectToArrayHydratorProperty]
+	public function getMimeType(): string
 	{
 		return $this->entity->getMimeType();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return DateTime
-	 */
-	public function getCreatedDate()
+	#[ObjectToArrayHydratorProperty]
+	public function getCreatedDate(): DateTime
 	{
 		return $this->entity->getCreatedDate();
 	}
 
-	/**
-	 * @return Entity
-	 */
 	public function getEntity(): Entity
 	{
 		return $this->entity;

@@ -7,22 +7,13 @@ class AddResult
 {
 	use ResultTrait;
 
-	/**
-	 * @var File|null
-	 */
-	private $file;
+	private ?File $file = null;
 
-	/**
-	 * @return File|null
-	 */
 	public function getFile(): ?File
 	{
 		return $this->file;
 	}
 
-	/**
-	 * @param File|null $file
-	 */
 	public function setFile(?File $file): void
 	{
 		$this->file = $file;

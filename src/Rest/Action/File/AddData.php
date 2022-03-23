@@ -15,7 +15,7 @@ class AddData extends Data
 	/**
 	 * @return PropertyDefinition[]
 	 */
-	protected function getDefinitions()
+	protected function getDefinitions(): array
 	{
 		return [
 			Text::create()

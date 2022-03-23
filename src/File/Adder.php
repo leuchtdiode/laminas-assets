@@ -9,26 +9,12 @@ use Assets\Db\File\Entity;
 
 class Adder
 {
-	/**
-	 * @var Saver
-	 */
-	private $entitySaver;
+	private Saver $entitySaver;
 
-	/**
-	 * @var Provider
-	 */
-	private $provider;
+	private Provider $provider;
 
-	/**
-	 * @var Persister
-	 */
-	private $persister;
+	private Persister $persister;
 
-	/**
-	 * @param Saver $entitySaver
-	 * @param Provider $provider
-	 * @param Persister $persister
-	 */
 	public function __construct(Saver $entitySaver, Provider $provider, Persister $persister)
 	{
 		$this->entitySaver = $entitySaver;
@@ -37,11 +23,9 @@ class Adder
 	}
 
 	/**
-	 * @param AddData $data
-	 * @return AddResult
 	 * @throws Exception
 	 */
-	public function add(AddData $data)
+	public function add(AddData $data): AddResult
 	{
 		$result = new AddResult();
 		$result->setSuccess(false);

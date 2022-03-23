@@ -11,20 +11,10 @@ use Laminas\View\Model\JsonModel;
 
 class Add extends Base
 {
-	/**
-	 * @var AddData
-	 */
-	private $data;
+	private AddData $data;
 
-	/**
-	 * @var Adder
-	 */
-	private $adder;
+	private Adder $adder;
 
-	/**
-	 * @param AddData $data
-	 * @param Adder $adder
-	 */
 	public function __construct(AddData $data, Adder $adder)
 	{
 		$this->data  = $data;
@@ -32,10 +22,9 @@ class Add extends Base
 	}
 
 	/**
-	 * @return JsonModel
 	 * @throws Exception
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel
 	{
 		$values = $this->data
 			->setRequest($this->getRequest())

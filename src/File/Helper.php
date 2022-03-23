@@ -3,11 +3,7 @@ namespace Assets\File;
 
 class Helper
 {
-	/**
-	 * @param string $fileName
-	 * @return string
-	 */
-	public static function getExtensionByFileName($fileName)
+	public static function getExtensionByFileName(string $fileName): string
 	{
 		$boom = explode('.', $fileName);
 

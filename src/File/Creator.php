@@ -7,24 +7,14 @@ use Assets\File\Url\Provider as UrlProvider;
 
 class Creator implements EntityDtoCreator
 {
-	/**
-	 * @var UrlProvider
-	 */
-	private $urlsProvider;
+	private UrlProvider $urlsProvider;
 
-	/**
-	 * @param UrlProvider $urlsProvider
-	 */
 	public function __construct(UrlProvider $urlsProvider)
 	{
 		$this->urlsProvider = $urlsProvider;
 	}
 
-	/**
-	 * @param Entity $entity
-	 * @return File
-	 */
-	public function byEntity($entity)
+	public function byEntity($entity): File
 	{
 		return new File(
 			$entity,

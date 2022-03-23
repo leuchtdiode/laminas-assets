@@ -7,42 +7,24 @@ use Assets\Db\File\Repository;
 
 class Provider
 {
-	/**
-	 * @var Repository
-	 */
-	private $repository;
+	private Repository $repository;
 
-	/**
-	 * @var DtoCreatorProvider
-	 */
-	private $dtoCreatorProvider;
+	private DtoCreatorProvider $dtoCreatorProvider;
 
-	/**
-	 * @param Repository $repository
-	 * @param DtoCreatorProvider $dtoCreatorProvider
-	 */
 	public function __construct(Repository $repository, DtoCreatorProvider $dtoCreatorProvider)
 	{
 		$this->repository         = $repository;
 		$this->dtoCreatorProvider = $dtoCreatorProvider;
 	}
 
-	/**
-	 * @param string $id
-	 * @return File|null
-	 */
-	public function byId($id)
+	public function byId(string $id): ?File
 	{
 		return ($entity = $this->repository->find($id))
 			? $this->createDto($entity)
 			: null;
 	}
 
-	/**
-	 * @param Entity $entity
-	 * @return File
-	 */
-	private function createDto(Entity $entity)
+	private function createDto(Entity $entity): File
 	{
 		return $this->dtoCreatorProvider
 			->getFileCreator()

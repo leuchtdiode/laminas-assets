@@ -3,14 +3,8 @@ namespace Assets\File;
 
 class RemoveData
 {
-	/**
-	 * @var File
-	 */
-	private $file;
+	private File $file;
 
-	/**
-	 * @return RemoveData
-	 */
 	public static function create(): self
 	{
 		return new self();

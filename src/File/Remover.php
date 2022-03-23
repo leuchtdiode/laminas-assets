@@ -7,15 +7,9 @@ use Exception;
 
 class Remover
 {
-	/**
-	 * @var Deleter
-	 */
-	private $entityDeleter;
+	private Deleter $entityDeleter;
 
-	/**
-	 * @var PathProvider
-	 */
-	private $pathProvider;
+	private PathProvider $pathProvider;
 
 	public function __construct(Deleter $entityDeleter, PathProvider $pathProvider)
 	{
@@ -24,8 +18,6 @@ class Remover
 	}
 
 	/**
-	 * @param RemoveData $data
-	 * @return RemoveResult
 	 * @throws Exception
 	 */
 	public function remove(RemoveData $data): RemoveResult

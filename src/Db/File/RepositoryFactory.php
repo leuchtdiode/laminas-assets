@@ -7,20 +7,14 @@ use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class RepositoryFactory implements FactoryInterface
 {
-
 	/**
-	 * Create an object
-	 *
-	 * @param  ContainerInterface $container
-	 * @param  string $requestedName
-	 * @param  null|array $options
-	 * @return object
+	 * @inheritDoc
 	 */
 	public function __invoke(
 		ContainerInterface $container,
 		$requestedName,
 		array $options = null
-	)
+	): object
 	{
 		return $container
 			->get(EntityManager::class)

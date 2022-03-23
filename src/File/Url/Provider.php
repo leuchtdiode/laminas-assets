@@ -6,20 +6,10 @@ use Laminas\Router\Http\TreeRouteStack;
 
 class Provider
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @var TreeRouteStack
-	 */
-	private $router;
+	private TreeRouteStack $router;
 
-	/**
-	 * @param array $config
-	 * @param TreeRouteStack $router
-	 */
 	public function __construct(array $config, TreeRouteStack $router)
 	{
 		$this->config = $config;
@@ -27,10 +17,9 @@ class Provider
 	}
 
 	/**
-	 * @param Entity $entity
 	 * @return Url[]
 	 */
-	public function all(Entity $entity)
+	public function all(Entity $entity): array
 	{
 		$types = [ 'original' ]; // all types for now, maybe more logic in future version
 
@@ -47,12 +36,7 @@ class Provider
 		return $urls;
 	}
 
-	/**
-	 * @param Entity $entity
-	 * @param string $type
-	 * @return string
-	 */
-	private function getUrl(Entity $entity, string $type)
+	private function getUrl(Entity $entity, string $type): string
 	{
 		[ $fileName, $extension ] = explode('.', $entity->getFileName());
 
