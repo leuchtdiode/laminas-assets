@@ -3,24 +3,31 @@ namespace Assets\Rest\Action\File;
 
 use Assets\File\Filesystem\PathProvider;
 use Assets\File\Provider;
+use Assets\File\Type\ProcessData;
+use Assets\File\Type\Processor;
 use Assets\Rest\Action\Base;
+use Exception;
 use Laminas\Http\Response;
-use function file_exists;
-use function file_get_contents;
-use function strlen;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class Content extends Base
 {
-	private Provider $fileProvider;
-
-	private PathProvider $pathProvider;
-
-	public function __construct(Provider $fileProvider, PathProvider $pathProvider)
+	public function __construct(
+		private array $config,
+		private ContainerInterface $container,
+		private Provider $fileProvider,
+		private PathProvider $pathProvider
+	)
 	{
-		$this->fileProvider = $fileProvider;
-		$this->pathProvider = $pathProvider;
 	}
 
+	/**
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
+	 * @throws Exception
+	 */
 	public function executeAction(): Response
 	{
 		$file = $this->fileProvider->byId(
@@ -37,6 +44,10 @@ class Content extends Base
 			return $response;
 		}
 
+		$type = $this
+			->params()
+			->fromRoute('type');
+
 		$path = $this->pathProvider->byEntity(
 			$file->getEntity()
 		);
@@ -47,15 +58,45 @@ class Content extends Base
 			return $response;
 		}
 
-		$content = file_get_contents($path);
+		if (!($typeConfig = $this->config['assets']['file']['processor'][$type] ?? null))
+		{
+			throw new Exception('Could not find processor config for type "' . $type . '"');
+		}
 
-		$response->getHeaders()->addHeaders(
-			[
-				'Content-disposition' => 'inline; filename=' . $file->getFileName(),
-				'Content-type'        => $file->getMimeType(),
-				'Content-size'        => strlen($content),
-			]
-		);
+		$processor = $this->container->get($typeConfig['processor']);
+
+		if (!$processor instanceof Processor)
+		{
+			throw new Exception('Invalid processor given');
+		}
+
+		$pathWithType = $path . '.' . $type;
+
+		if (!file_exists($pathWithType))
+		{
+			$processResult = $processor->process(
+				ProcessData::create()
+					->setFile($file)
+					->setOptions($typeConfig['options'] ?? [])
+			);
+
+			$content = $processResult->getContent();
+
+			file_put_contents($pathWithType, $content);
+		}
+		else
+		{
+			$content = file_get_contents($pathWithType);
+		}
+
+		$response->getHeaders()
+			->addHeaders(
+				[
+					'Content-disposition' => 'inline; filename=' . $file->getFileName(),
+					'Content-type'        => $file->getMimeType(),
+					'Content-size'        => strlen($content),
+				]
+			);
 
 		$response->setContent($content);
 

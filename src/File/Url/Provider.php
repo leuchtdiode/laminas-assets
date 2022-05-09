@@ -2,26 +2,21 @@
 namespace Assets\File\Url;
 
 use Assets\Db\File\Entity;
+use Assets\File\Type\Type;
 use Laminas\Router\Http\TreeRouteStack;
 
 class Provider
 {
-	private array $config;
-
-	private TreeRouteStack $router;
-
-	public function __construct(array $config, TreeRouteStack $router)
+	public function __construct(private array $config, private TreeRouteStack $router)
 	{
-		$this->config = $config;
-		$this->router = $router;
 	}
 
 	/**
 	 * @return Url[]
 	 */
-	public function all(Entity $entity): array
+	public function get(Entity $entity, ?array $types = null): array
 	{
-		$types = [ 'original' ]; // all types for now, maybe more logic in future version
+		$types = $types ?? [ Type::ORIGINAL ];
 
 		$urls = [];
 

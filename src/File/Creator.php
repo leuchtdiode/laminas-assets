@@ -4,21 +4,23 @@ namespace Assets\File;
 use Assets\Common\EntityDtoCreator;
 use Assets\Db\File\Entity;
 use Assets\File\Url\Provider as UrlProvider;
+use Common\Dto\Dto;
 
 class Creator implements EntityDtoCreator
 {
-	private UrlProvider $urlsProvider;
-
-	public function __construct(UrlProvider $urlsProvider)
+	public function __construct(private UrlProvider $urlsProvider)
 	{
-		$this->urlsProvider = $urlsProvider;
 	}
 
-	public function byEntity($entity): File
+	/**
+	 * @param Entity $entity
+	 * @return File
+	 */
+	public function byEntity($entity, ?CreateOptions $createOptions = null): Dto
 	{
 		return new File(
 			$entity,
-			$this->urlsProvider->all($entity)
+			$this->urlsProvider->get($entity, $createOptions?->getTypes())
 		);
 	}
 }

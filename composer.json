@@ -23,6 +23,9 @@
 		"leuchtdiode/laminas-common": "^2.1.0",
 		"ramsey/uuid-doctrine": "^1.8.0"
 	},
+	"suggest": {
+		"ext-imagick": "Webp processor needs ImageMagick"
+	},
 	"autoload": {
 		"psr-4": {
 			"Assets\\": "src/"
