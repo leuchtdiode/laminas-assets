@@ -38,6 +38,8 @@ class Provider
 		$fileName = preg_replace('#[^\w\-]+#', '-', $fileName);
 		$fileName = preg_replace('#[\-]{2,}#', '', $fileName);
 
+		$typeConfig = $this->config['assets']['file']['processor'][$type];
+
 		return sprintf(
 			'%s://%s%s',
 			$this->config['assets']['url']['protocol'],
@@ -49,7 +51,7 @@ class Provider
 						->toString(),
 					'type'      => $type,
 					'fileName'  => $fileName,
-					'extension' => $extension,
+					'extension' => $typeConfig['extension'] ?? $extension,
 				],
 				[
 					'name' => 'assets/file/single-item/content',

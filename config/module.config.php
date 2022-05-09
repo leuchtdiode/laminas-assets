@@ -18,6 +18,8 @@ return [
 				],
 				Type::WEBP     => [
 					'processor' => WebpProcessor::class,
+					'mimeType'  => 'image/webp',
+					'extension' => 'webp',
 					'options'   => [
 						'method'             => 4,
 						'compressionQuality' => 100,

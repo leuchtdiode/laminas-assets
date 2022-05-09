@@ -30,10 +30,10 @@ class Content extends Base
 	 */
 	public function executeAction(): Response
 	{
+		$params = $this->params();
+
 		$file = $this->fileProvider->byId(
-			$this
-				->params()
-				->fromRoute('fileId')
+			$params->fromRoute('fileId')
 		);
 
 		$response = $this->getResponse();
@@ -44,9 +44,7 @@ class Content extends Base
 			return $response;
 		}
 
-		$type = $this
-			->params()
-			->fromRoute('type');
+		$type = $params->fromRoute('type');
 
 		$path = $this->pathProvider->byEntity(
 			$file->getEntity()
@@ -89,11 +87,14 @@ class Content extends Base
 			$content = file_get_contents($pathWithType);
 		}
 
-		$response->getHeaders()
+		$outputFileName = $params->fromRoute('fileName') . '.' . $params->fromRoute('extension');
+
+		$response
+			->getHeaders()
 			->addHeaders(
 				[
-					'Content-disposition' => 'inline; filename=' . $file->getFileName(),
-					'Content-type'        => $file->getMimeType(),
+					'Content-disposition' => 'inline; filename=' . $outputFileName,
+					'Content-type'        => $typeConfig['mimeType'] ?? $file->getMimeType(),
 					'Content-size'        => strlen($content),
 				]
 			);
