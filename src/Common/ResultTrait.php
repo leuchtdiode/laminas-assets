@@ -12,7 +12,7 @@ trait ResultTrait
 	 */
 	private array $errors = [];
 
-	public function addError(Error $error): ResultTrait
+	public function addError(Error $error): static
 	{
 		$this->errors[] = $error;
 
@@ -22,13 +22,13 @@ trait ResultTrait
 	/**
 	 * @param Error[] $errors
 	 */
-	public function setErrors(array $errors): ResultTrait
+	public function setErrors(array $errors): static
 	{
 		$this->errors = $errors;
 		return $this;
 	}
 
-	public function setSuccess(bool $success): ResultTrait
+	public function setSuccess(bool $success): static
 	{
 		$this->success = $success;
 
