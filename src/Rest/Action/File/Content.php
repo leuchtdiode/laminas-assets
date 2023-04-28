@@ -15,10 +15,10 @@ use Psr\Container\NotFoundExceptionInterface;
 class Content extends Base
 {
 	public function __construct(
-		private array $config,
-		private ContainerInterface $container,
-		private Provider $fileProvider,
-		private PathProvider $pathProvider
+		private readonly array $config,
+		private readonly ContainerInterface $container,
+		private readonly Provider $fileProvider,
+		private readonly PathProvider $pathProvider
 	)
 	{
 	}

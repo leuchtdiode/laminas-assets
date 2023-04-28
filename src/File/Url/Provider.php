@@ -7,7 +7,10 @@ use Laminas\Router\Http\TreeRouteStack;
 
 class Provider
 {
-	public function __construct(private array $config, private TreeRouteStack $router)
+	public function __construct(
+		private readonly array $config,
+		private readonly TreeRouteStack $router
+	)
 	{
 	}
 

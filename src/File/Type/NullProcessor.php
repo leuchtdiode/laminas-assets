@@ -5,7 +5,9 @@ use Assets\File\Filesystem\PathProvider;
 
 class NullProcessor implements Processor
 {
-	public function __construct(private PathProvider $pathProvider)
+	public function __construct(
+		private readonly PathProvider $pathProvider
+	)
 	{
 	}
 

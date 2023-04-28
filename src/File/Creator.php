@@ -8,7 +8,9 @@ use Common\Dto\Dto;
 
 class Creator implements EntityDtoCreator
 {
-	public function __construct(private UrlProvider $urlsProvider)
+	public function __construct(
+		private readonly UrlProvider $urlsProvider
+	)
 	{
 	}
 

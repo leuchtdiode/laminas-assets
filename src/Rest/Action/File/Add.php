@@ -1,13 +1,13 @@
 <?php
 namespace Assets\Rest\Action\File;
 
-use Assets\File\Adder;
 use Assets\File\AddData as FileAddData;
+use Assets\File\Adder;
 use Assets\Rest\Action\Base;
 use Assets\Rest\Action\Response;
 use Common\Hydration\ObjectToArrayHydrator;
-use Exception;
 use Laminas\View\Model\JsonModel;
+use Throwable;
 
 class Add extends Base
 {
@@ -22,7 +22,7 @@ class Add extends Base
 	}
 
 	/**
-	 * @throws Exception
+	 * @throws Throwable
 	 */
 	public function executeAction(): JsonModel
 	{

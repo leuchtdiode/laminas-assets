@@ -2,28 +2,23 @@
 namespace Assets\File;
 
 use Assets\Db\File\Saver;
+use Assets\Db\File\Entity;
 use Assets\File\Filesystem\PersistData;
 use Assets\File\Filesystem\Persister;
-use Exception;
-use Assets\Db\File\Entity;
+use Throwable;
 
 class Adder
 {
-	private Saver $entitySaver;
-
-	private Provider $provider;
-
-	private Persister $persister;
-
-	public function __construct(Saver $entitySaver, Provider $provider, Persister $persister)
+	public function __construct(
+		private readonly Saver $entitySaver,
+		private readonly Provider $provider,
+		private readonly Persister $persister
+	)
 	{
-		$this->entitySaver = $entitySaver;
-		$this->provider    = $provider;
-		$this->persister   = $persister;
 	}
 
 	/**
-	 * @throws Exception
+	 * @throws Throwable
 	 */
 	public function add(AddData $data): AddResult
 	{

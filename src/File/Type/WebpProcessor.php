@@ -7,7 +7,9 @@ use Imagick;
 
 class WebpProcessor implements Processor
 {
-	public function __construct(private PathProvider $pathProvider)
+	public function __construct(
+		private readonly PathProvider $pathProvider
+	)
 	{
 	}
 
