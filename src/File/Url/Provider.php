@@ -36,7 +36,11 @@ class Provider
 
 	private function getUrl(Entity $entity, string $type): string
 	{
-		[ $fileName, $extension ] = explode('.', $entity->getFileName());
+		$parts = explode('.', $entity->getFileName());
+
+		$extension = array_pop($parts);
+
+		$fileName = implode('-', $parts);
 
 		$fileName = preg_replace('#[^\w\-]+#', '-', $fileName);
 		$fileName = preg_replace('#[\-]{2,}#', '', $fileName);
