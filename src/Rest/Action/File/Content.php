@@ -1,6 +1,7 @@
 <?php
 namespace Assets\Rest\Action\File;
 
+use Assets\Common\MemoryUtil;
 use Assets\File\Filesystem\PathProvider;
 use Assets\File\Provider;
 use Assets\File\Type\ProcessData;
@@ -66,6 +67,16 @@ class Content extends Base
 		if (!$processor instanceof Processor)
 		{
 			throw new Exception('Invalid processor given');
+		}
+
+		$memoryLimit       = MemoryUtil::getMemoryLimitInBytes();
+		$fileSize          = (int)$file->getSize();
+		$targetMemoryLimit = $fileSize * 2;
+
+		// set memory limit twice the size of the file size to avoid memory leaks
+		if ($targetMemoryLimit > $memoryLimit)
+		{
+			ini_set('memory_limit', $targetMemoryLimit);
 		}
 
 		$pathWithType = $path . '.' . $type;
