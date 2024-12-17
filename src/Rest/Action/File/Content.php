@@ -76,7 +76,7 @@ class Content extends Base
 		// set memory limit twice the size of the file size to avoid memory leaks
 		if ($targetMemoryLimit > $memoryLimit)
 		{
-			ini_set('memory_limit', $targetMemoryLimit);
+			ini_set('memory_limit', round($targetMemoryLimit / 1000 / 1024) . 'M');
 		}
 
 		$pathWithType = $path . '.' . $type;
