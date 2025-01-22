@@ -1,6 +1,7 @@
 <?php
 namespace Assets\Rest\Action\File;
 
+use Assets\Common\StringUtil;
 use Assets\File\AddData as FileAddData;
 use Assets\File\Adder;
 use Assets\Rest\Action\Base;
@@ -38,13 +39,18 @@ class Add extends Base
 				->dispatch();
 		}
 
+		$content = $values
+			->get(AddData::CONTENT)
+			->getValue();
+
+		if (StringUtil::isBase64($content))
+		{
+			$content = base64_decode($content);
+		}
+
 		$result = $this->adder->add(
 			FileAddData::create()
-				->setContent(
-					$values
-						->get(AddData::CONTENT)
-						->getValue()
-				)
+				->setContent($content)
 				->setFileName(
 					$values
 						->get(AddData::FILE_NAME)
