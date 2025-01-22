@@ -13,7 +13,7 @@ class Response
 	/**
 	 * @var Error[]
 	 */
-	private array $errors;
+	private array $errors = [];
 
 	private ?array $data = null;
 
